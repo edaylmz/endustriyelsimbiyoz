@@ -38,9 +38,9 @@
       <div class="media-body" style="margin-left: 20px;" align="left" >
         <h5 class="mt-0">{{ ad }}</h5>
         <h5 class="mt-0">{{ x }}</h5>
-            {% if x is not Null  %}
+            {% if x is Null  %}
                 <a href=" {% url 'UreticiBilgileri' %}" type="button" class="btn btn-primary">Firma Ekle</a>
-            {% else %}
+            {% elif x is not Null %}
                 <a href="{% url "firmaupdate" %}"  type="button" class="btn btn-primary" >Firma Bilgileri Düzenle</a>
                 <a href="{% url "firmagoruntule" %}" type="button" class="btn btn-outline-info">Firma Bilgilerini Görüntüle</a>
 
@@ -53,46 +53,37 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <a href="{% url 'AtikEkle' %}">
-            <button type="button" class="btn btn-success">Atık Ekle</button>
+        <a href="{% url 'HammaddeEkle' %}">
+            <button type="button" class="btn btn-success">HAMMADDE EKLE</button>
         </a>
+        <a href="#" type="button" class="btn btn-warning ">ATIK BUL</a>
 
-
-
-    </div>
-</div>
-
-<div class="card">
+<div style="margin-top: 20px;" class="card">
     <div class="card-header">
-        <h3>ATIK ENVANTERİ</h3>
+        <h3>HAMMADDE</h3>
     </div>
     <div class="card-body">
             <table id="producer_wastes" class="table table-hover">
                 <thead>
                 <tr>
                     <th></th>
-                    <th>Ticari Adi</th>
-                    <th>Atık Kodu ve Açıklaması</th>
+                    <th>Ticari Adı</th>
                     <th>Yıllık Miktarı</th>
-                    <th>Fiziksel Özelliği</th>
-                    <th>Tehlikelilik Özelliği</th>
                     <th>İşlemler</th>
+
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for i in atiklar %}
-                    <tr >
+                {% for i in hammaddeler %}
+                    <tr>
                         <td></td>
-                        <td>  <a href="{% url 'atikgoruntule' id=i.id %}">{{ i.TicariAdi }}</a></td>
-                        <td>{{ i.AtikKodu }}</td>
+                        <td>{{ i.TicariAdi }}</td>
                         <td>{{ i.Miktar }}</td>
-                        <td>{{ i.FizikselOzellik }}</td>
-                        <td>{{ i.TehlikeOzellik }}</td>
+
                         <td>
                             <a href="#" class="btn btn-warning">Düzenle</a>
                             <a href="#" class="btn btn-danger">Sil</a>
-                            <a href="#" class="btn btn-success">Eşleşme Bul</a>
                             <!--/main/update/i.id sil ve eşleşmeler için de olacak dinamik url yaz-->
                         </td>
 
@@ -102,6 +93,9 @@
                 {% endfor %}
                 </tbody>
             </table>
+
+    </div>
+</div>
 
     </div>
 </div>

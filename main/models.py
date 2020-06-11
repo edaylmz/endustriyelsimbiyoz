@@ -1,18 +1,22 @@
 from __future__ import unicode_literals
 
+from django import conf
+
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.db.models import CASCADE
-from django.utils import timezone
+
 from django.db import models
-from location_field.models.plain import PlainLocationField
-from account.models import Uye
 
 
 # Create your models here.
+from location_field import settings
+
 
 class FirmaBilgileri(models.Model):
-    Firmauye = models.ForeignKey('auth.User', on_delete=CASCADE)
-    #FirmaId=models.AutoField(primary_key=True)
-    Durum = models.BooleanField(u'Durum')
+    Firmauye = models.ForeignKey(User, on_delete=CASCADE)
+    # FirmaId=models.AutoField(primary_key=True)
+    # Durum = models.BooleanField(u'Durum')
     FirmaUnvani = models.CharField(u'Firma Ünvanı', max_length=50)
     NACE = models.CharField(u'NACE Kodu', max_length=8)
     FaaliyetAlani = models.TextField(u'Faaliyet Alanı', blank=True)
@@ -25,7 +29,8 @@ class FirmaBilgileri(models.Model):
     IlgiliAd = models.CharField(u'İlgili Kişi Adı', max_length=50, blank=True)
     IlgiliTel = models.IntegerField(u'İlgili Kişi Tel', blank=True)
     IlgiliEmail = models.EmailField(u'İlgili Kişi Email', blank=True)
-    Konum = PlainLocationField(based_fields=['Il'], zoom=7)
+
+    # Konum = PlainLocationField(based_fields=['Il'], zoom=7)
 
     def __unicode__(self):
         return self.FirmaUnvani, self.NACE
@@ -36,43 +41,70 @@ class FirmaBilgileri(models.Model):
 
 
 class AtikTemel(models.Model):
-    #firma = models.ForeignKey('FirmaBilgileri', on_delete=CASCADE)
-    #AtikId=models.AutoField(primary_key=True)
+    firma = models.ForeignKey(User, on_delete=CASCADE)
+    # AtikId=models.AutoField(primary_key=True)
     AtikKodu = models.CharField(u'Atık Kodu', max_length=40)
-    FizikselOzellik = models.TextField(u'Fiziksel Özellikleri')
-    Renk = models.CharField(u'Renk', max_length=20, blank=True)
-    TehlikeOzellik = models.TextField(u'Tehlike Özellikleri', blank=True)
-    ProsesBilgi = models.TextField(u'Proses Bilgileri', blank=True)
-    AtikAnaliz = models.TextField(u'Atık Analizleri', blank=True)
+    FizikselOzellik = models.CharField(u'Fiziksel Özellikleri', max_length=500)
+    Renk = models.CharField(u'Renk', max_length=20, blank=True, null=True)
+    TehlikeOzellik = models.CharField(u'Tehlike Özellikleri', max_length=500, blank=True, null=True)
+    ProsesBilgi = models.CharField(u'Proses Bilgileri', max_length=500, blank=True, null=True)
+    AtikAnaliz = models.CharField(u'Atık Analizleri', max_length=500, blank=True, null=True)
     Miktar = models.CharField(u'Yıllık Atık Miktarı', max_length=400)
-    TasimaOnlem = models.TextField(u'Taşıma Önlemleri', blank=True)
-    Notlar = models.TextField(u'Notlar', blank=True)
-    Dosyalar = models.FileField(u'Dosyalar', blank=True)
+    AtikTanim = models.CharField(u'Atık Tanımı', max_length=500)
+    TicariAdi = models.CharField(u'Atığın Ticari Adı', max_length=40)
+    ProsesAmac = models.CharField(u'Prosesin Amacı', max_length=500)
+    ProsesAsama = models.CharField(u'Atığın Kaynaklandığı Proses Aşaması', max_length=50)
+    ProsesOzet = models.CharField(u'Proses Özeti', max_length=500)
+    EK3B = models.FileField(u'Ek3-B Analizi', blank=True, null=True)
+    EK2 = models.FileField(u'EK-2 Analizi', blank=True, null=True)
 
     def __unicode__(self):
         return self.AtikKodu
 
     class Meta:
-        verbose_name_plural = u"Atıklar"
         verbose_name = u"Atık"
+        verbose_name_plural = u"Atıklar"
 
 
-class BilesenAnaliz(models.Model):
-    #AtikKodu = models.ForeignKey('AtikTemel', on_delete=CASCADE
-    #BilesenId=models.AutoField(primary_key=True)
-    AtikTanim = models.TextField(u'Atık Tanımı')
-    TicariAdi = models.CharField(u'Atığın Ticari Adı', max_length=40)
-    Synonim1 = models.CharField(u'Sinonim1', max_length=40)
-    Synonim2 = models.CharField(u'Sinonim2', max_length=40)
-    ProsesAmac = models.TextField(u'Prosesin Amacı')
-    ProsesAsama = models.CharField(u'Atığın Kaynaklandığı Proses Aşaması', max_length=50)
-    ProsesOzet = models.TextField(u'Proses Özeti')
-    EK3B = models.FileField(u'Ek3-B Analizi')
-    EK2 = models.FileField(u'EK-2 Analizi')
+class Bilesenler(models.Model):
+    atik = models.ForeignKey(AtikTemel, on_delete=CASCADE, related_name="atık")
+    Bilesenadi = models.CharField(u'Bileşen Adı', max_length=20)
+    max = models.IntegerField(u'Max')
+    min = models.IntegerField(u'Min')
+    yuzde = models.IntegerField(u'Yüzde')
 
     def __unicode__(self):
-        return self.TicariAdi,self.AtikKodu
+        return self.Bilesenadi
 
     class Meta:
-        verbose_name_plural=u"Bilesenler"
-        verbose_name=u"Bilesen"
+        verbose_name = u"Atık Bilesen"
+        verbose_name_plural = u"Atık Bilesenler"
+
+
+class Hammadde(models.Model):
+    firma = models.ForeignKey('auth.User', on_delete=CASCADE)
+    TicariAdi = models.CharField(u'Ticari Adı', max_length=100)
+    Miktar = models.IntegerField(u'Yıllık Miktarı')
+
+    def __unicode__(self):
+        return self.TicariAdi
+
+    class Meta:
+        verbose_name_plural = u"Hammaddeler"
+        verbose_name = u"Hammadde"
+
+
+class HammaddeBilesenler(models.Model):
+    # uye = models.ForeignKey('auth.User', on_delete=CASCADE)
+    hammadde = models.ForeignKey(Hammadde, on_delete=CASCADE, related_name="atık")
+    Bilesenadi = models.CharField(u'Bileşen Adı', max_length=20)
+    max = models.IntegerField(u'Max')
+    min = models.IntegerField(u'Min')
+    yuzde = models.IntegerField(u'Yüzde')
+
+    def __unicode__(self):
+        return self.Bilesenadi
+
+    class Meta:
+        verbose_name = u"Bilesen"
+        verbose_name_plural = u"Bilesenler"

@@ -1,115 +1,41 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <style>
-        body {
-  font-family: "Lato", sans-serif;
-}
 
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: #f1f1f1;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #444;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
-    </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Title</title>
 </head>
-<div>
 
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
-</div>
+
+
 <div id="main">
-    <nav class="navbar navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" onclick="openNav()">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-         </form>
+ <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Endüstriyel Simbiyoz</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Anasayfa <span class="sr-only">(current)</span></a>
+          </li>
+
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
     </nav>
 </div>
 
-<div class="card" >
-    <div class="card-header">
-        <table class="table table-bordered" >
-            <tbody >
-                <tr >
-                    <tr >
-                        <th  style="background-color: #f1f1f1">ATIK</th >
-                        <th>
-                            <h4>01 01 01</h4><code>Metalik maden kazılarından kaynaklanan atıklar</code>
-                        </th>
-                    </tr>
-                    <tr >
-                        <th style="background-color: #f1f1f1">Özellikler / Not</th>
-                        <th>
-                            <b>H14 Ekotoksik</b> - 10 TON <br>
-                        </th>
-                    </tr>
-                </tr>
-            </tbody>
-        </table>
+<div style="margin-top: 50px;" class="card" >
+        <div class="card-header">
+        <h4>Firma Bilgileri</h4>
     </div>
+
 
     <div class="card-body">
         <form>

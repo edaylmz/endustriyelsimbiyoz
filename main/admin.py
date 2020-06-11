@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 from django.contrib import admin
-from .models import AtikTemel, FirmaBilgileri,BilesenAnaliz
+from .models import *
 
 
 # Register your models here.
-#class AtikInline(admin.StackedInline):
+# class AtikInline(admin.StackedInline):
 #    model = AtikTemel
 #    extra = 0
 #    max_num = 20
@@ -18,11 +18,11 @@ def update_selected(modeladmin, request, queryset):
 
 update_selected.short_description = u"Seçilileri Güncelle"
 
+
 class MainAdminFirma(admin.ModelAdmin):
-   # inlines = [AtikInline,]
-    list_display = ['FirmaUnvani', 'NACE', 'Konum']
+    # inlines = [AtikInline,]
+    list_display = ['FirmaUnvani', 'NACE']
     search_fields = ['NACE', 'FirmaUnvani', 'Il', 'Ilce']
-    exclude = ['UyeKodu']
 
     class Meta:
         model = FirmaBilgileri
@@ -31,11 +31,19 @@ class MainAdminFirma(admin.ModelAdmin):
 admin.site.register(FirmaBilgileri, MainAdminFirma)
 
 
+class BilesenlerInline(admin.StackedInline):
+    model = Bilesenler
+    list_display = ['Bilesenadi', 'yüzde']
+
+    class Meta:
+        model = Bilesenler
+
 
 class MainAdminAtik(admin.ModelAdmin):
-    list_display = ['AtikKodu', 'Miktar']
+    list_display = ['AtikKodu', 'Miktar', 'TicariAdi']
     search_fields = ['AtikKodu', 'Miktar']
     list_display_links = ['AtikKodu']
+    inlines = [BilesenlerInline]
 
     actions = (update_selected,)
     actions_on_bottom = True
@@ -47,14 +55,20 @@ class MainAdminAtik(admin.ModelAdmin):
 
 admin.site.register(AtikTemel, MainAdminAtik)
 
-class MainAdminBilesen(admin.ModelAdmin):
-    list_display = ['TicariAdi', 'AtikTanim']
-    search_fields = ['TicariAdi','AtikKodu']
-    list_display_links = ['TicariAdi']
+
+class HammaddeBilesenlerInline(admin.StackedInline):
+    model = HammaddeBilesenler
 
     class Meta:
-        model= BilesenAnaliz
-admin.site.register(BilesenAnaliz,MainAdminBilesen)
+        model = HammaddeBilesenler
 
 
+class MainAdminHammadde(admin.ModelAdmin):
+    list_display = ['TicariAdi', 'Miktar']
+    inlines = [HammaddeBilesenlerInline]
 
+    class Meta:
+        model = Hammadde
+
+
+admin.site.register(Hammadde, MainAdminHammadde)
