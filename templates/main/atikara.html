@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% load crispy_forms_filters %}
 <html lang="en">
 <head>
  <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
@@ -30,37 +30,23 @@
       </div>
     </nav>
 </div>
-
-
-<div  style="margin-top: 55px;" align="center" >
-    <div class="media" style="background-color: #eee; width: 100%; height: 8em; " >
-
-      <div class="media-body" style="margin-left: 20px;" align="left" >
-        <h5 class="mt-0">{{ ad }}</h5>
-        <h5 class="mt-0">{{ x }}</h5>
-            {% if x is Null  %}
-                <a href=" {% url 'UreticiBilgileri' %}" type="button" class="btn btn-primary">Firma Ekle</a>
-            {% elif x is not Null %}
-                <a href="{% url "firmaupdate" %}"  type="button" class="btn btn-primary" >Firma Bilgileri Düzenle</a>
-                <a href="{% url "firmagoruntule" %}" type="button" class="btn btn-outline-info">Firma Bilgilerini Görüntüle</a>
-
-            {% endif %}
-
-
-      </div>
-
+    <div style="margin-top: 100px; margin-left: 350px;" class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-6">
+                <form method="GET">
+                {% csrf_token %}
+                    <h1>Atık Ara</h1>
+                    <hr>
+                        {{ form|crispy }}
+                        <input style="margin-top: 10px; float: right" class="btn btn-primary" type="submit" value="ARAMA YAP">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <a href="{% url 'HammaddeEkle' %}">
-            <button type="button" class="btn btn-success">HAMMADDE EKLE</button>
-        </a>
-        <a href="{% url 'atik_ara' %}" type="button" class="btn btn-outline-success ">ATIK BUL</a>
 
 <div style="margin-top: 20px;" class="card">
     <div class="card-header">
-        <h3>HAMMADDELER</h3>
+        <h3>ATIKLAR </h3>
     </div>
     <div class="card-body">
             <table id="producer_wastes" class="table table-hover">
@@ -69,24 +55,25 @@
                     <th></th>
                     <th>Ticari Adı</th>
                     <th>Yıllık Miktarı (ton/yıl)</th>
-                    <th>İşlemler</th>
+                    <th>İl</th>
+                    <th>İlçe</th>
+                    <th>Bilesen</th>
+
 
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for i in hammaddeler %}
+                {% for i in query %}
                     <tr>
                         <td></td>
-                        <td>  <a href="{% url 'hammaddegor' id=i.id %}">{{ i.TicariAdi }}</a></td>
-                        <td>{{ i.Miktar }}</td>
+                        <td> <a href="{% url 'atikgoruntule' id=i.atik.id %}"> {{i.atik.TicariAdi}}</a></td>
+                        <td>{{ i.atik.Miktar }}</td>
+                        <td>{{ i.atik.Il }}</td>
+                        <td>{{ i.atik.Ilce }}</td>
+                        <td>{{ i.Bilesenadi }}</td>
 
 
-                        <td>
-                            <a href="{% url 'hammaddeupdate' pk=i.pk %}" class="btn btn-warning">Düzenle</a>
-                            <a href="{% url 'hammaddesil' id=i.id %}" class="btn btn-danger">Sil</a>
-                            <!--/main/update/i.id sil ve eşleşmeler için de olacak dinamik url yaz-->
-                        </td>
 
                         <td></td>
                     </tr>
@@ -97,9 +84,5 @@
 
     </div>
 </div>
-
-    </div>
-</div>
-
 </body>
 </html>

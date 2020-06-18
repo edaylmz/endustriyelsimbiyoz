@@ -38,13 +38,9 @@
       <div class="media-body" style="margin-left: 20px;" align="left" >
         <h5 class="mt-0">{{ ad }}</h5>
         <h5 class="mt-0">{{ x }}</h5>
-            {% if x is not Null  %}
-                <a href=" {% url 'UreticiBilgileri' %}" type="button" class="btn btn-primary">Firma Ekle</a>
-            {% else %}
+
                 <a href="{% url "firmaupdate" %}"  type="button" class="btn btn-primary" >Firma Bilgileri Düzenle</a>
                 <a href="{% url "firmagoruntule" %}" type="button" class="btn btn-outline-info">Firma Bilgilerini Görüntüle</a>
-
-            {% endif %}
 
 
       </div>
@@ -56,6 +52,7 @@
         <a href="{% url 'AtikEkle' %}">
             <button type="button" class="btn btn-success">Atık Ekle</button>
         </a>
+        <a href="{% url 'hammadde_ara' %}" class="btn btn-outline-success">Hammadde Bul</a>
 
 
 
@@ -73,7 +70,7 @@
                     <th></th>
                     <th>Ticari Adi</th>
                     <th>Atık Kodu ve Açıklaması</th>
-                    <th>Yıllık Miktarı</th>
+                    <th>Yıllık Miktarı (ton/yıl)</th>
                     <th>Fiziksel Özelliği</th>
                     <th>Tehlikelilik Özelliği</th>
                     <th>İşlemler</th>
@@ -90,9 +87,8 @@
                         <td>{{ i.FizikselOzellik }}</td>
                         <td>{{ i.TehlikeOzellik }}</td>
                         <td>
-                            <a href="#" class="btn btn-warning">Düzenle</a>
-                            <a href="#" class="btn btn-danger">Sil</a>
-                            <a href="#" class="btn btn-success">Eşleşme Bul</a>
+                            <a href="{% url 'atikupdate' pk=i.pk %}" class="btn btn-warning">Düzenle</a>
+                            <a href="{% url 'atiksil' id=i.id %}" class="btn btn-danger">Sil</a>
                             <!--/main/update/i.id sil ve eşleşmeler için de olacak dinamik url yaz-->
                         </td>
 

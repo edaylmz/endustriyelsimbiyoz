@@ -38,23 +38,46 @@
         <div class="col-md-6 col-md-offset-6">
 <div  class="card text-center">
   <div class="card-header">
-      <h5>Firma Bilgileri</h5>
+      <h5>Hammadde Bilgileri</h5>
   </div>
   <div class="card-body">
+      <table id="producer_wastes" class="table table-hover">
+
+    <tr><a href="{% url 'firmagor' id=firma.id %}">Firma Bilgileri</a></tr>
+    <tr><td><b>Ticari Adı:</b></td> <td> {{ hammmadde.TicariAdi }}<td> </tr>
+    <tr><td><b>Miktar:</b></td> <td>{{ hammmadde.Miktar }} <td> </tr>
+    <tr><td><b>İl:</b></td> <td> {{ hammmadde.Il }}<td> </tr>
+    <tr><td><b>İlçe:</b></td> <td> {{ hammmadde.Ilce }} <td> </tr>
+      </table>
        <table id="producer_wastes" class="table table-hover">
-           <tr><td><b>Firma Ünvanı:</b></td> <td> {{ firma.FirmaUnvani }} <td> </tr>
-           <tr><td><b>NACE:</b></td> <td> {{ firma.NACE }} <td> </tr>
-           <tr><td><b>Faaliyet Alanı:</b></td> <td> {{ firma.FaaliyetAlani }} <td> </tr>
-           <tr><td><b>Firma Adresi:</b></td> <td> {{ firma.Adres }} <td> </tr>
-           <tr><td><b>İl:</b></td> <td>{{ firma.Il }} <td> </tr>
-           <tr><td><b>İlçe:</b></td> <td>{{ firma.Ilce }} <td> </tr>
-           <tr><td><b>Firma Tel:</b></td> <td> {{ firma.FirmaTel }} <td> </tr>
-           <tr><td><b>Firma Email:</b></td> <td> {{ firma.Email }} <td> </tr>
-           <tr><td><b>Web Sitesi:</b></td> <td> {{ firma.WebSitesi }} <td> </tr>
-           <tr><td><b>İlgili Kişi:</b></td> <td>{{ firma.IlgiliAd }} <td> </tr>
-           <tr><td><b>İlgili Kişi Email:</b></td> <td> {{ firma.IlgiliEmail }} <td> </tr>
-           <tr><td><b>İlgili Kişi Tel:</b></td> <td> {{ firma.IlgiliTel }} <td> </tr>
-       </table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Bilesen Adı</th>
+                    <th>Yüzde</th>
+                    <th>Max Oran</th>
+                    <th>Min Oran</th>
+
+                    <th></th>
+                </tr>
+                </thead>
+                          <tbody>
+                {% for i in bilesenler %}
+                    <tr>
+                        <td></td>
+                        <td> {{i.Bilesenadi}}</td>
+                        <td>{{ i.yuzde }}</td>
+                        <td>{{ i.max }}</td>
+                        <td>{{ i.min }}</td>
+
+
+
+                        <td></td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
   </div>
 
   <div class="card-footer text-muted">

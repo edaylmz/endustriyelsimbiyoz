@@ -15,7 +15,7 @@ def account_kayitol(request):
         user.save()
         new_user = authenticate(username=user.username,password=password)
         login(request, new_user)
-        return redirect('anasayfa')
+        return redirect('UreticiBilgileri')
     return render(request, 'account/form.html', {'form': form,'title':'Kayıt Ol'})
 
 

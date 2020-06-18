@@ -8,7 +8,6 @@ from django.db.models import CASCADE
 
 from django.db import models
 
-
 # Create your models here.
 from location_field import settings
 
@@ -41,8 +40,10 @@ class FirmaBilgileri(models.Model):
 
 
 class AtikTemel(models.Model):
-    firma = models.ForeignKey(User, on_delete=CASCADE)
+    firma = models.ForeignKey('auth.User', on_delete=CASCADE,null=True)
     # AtikId=models.AutoField(primary_key=True)
+    Il = models.CharField(u'İl', max_length=50,null=True)
+    Ilce = models.CharField(u'İlce', max_length=50,null=True)
     AtikKodu = models.CharField(u'Atık Kodu', max_length=40)
     FizikselOzellik = models.CharField(u'Fiziksel Özellikleri', max_length=500)
     Renk = models.CharField(u'Renk', max_length=20, blank=True, null=True)
@@ -82,7 +83,9 @@ class Bilesenler(models.Model):
 
 
 class Hammadde(models.Model):
-    firma = models.ForeignKey('auth.User', on_delete=CASCADE)
+    firma = models.ForeignKey('auth.User', on_delete=CASCADE,null=True)
+    Il = models.CharField(u'İl', max_length=50, null=True)
+    Ilce = models.CharField(u'İlçe', max_length=50, null=True)
     TicariAdi = models.CharField(u'Ticari Adı', max_length=100)
     Miktar = models.IntegerField(u'Yıllık Miktarı')
 

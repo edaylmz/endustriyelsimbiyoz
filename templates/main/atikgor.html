@@ -41,19 +41,52 @@
       <h5>Atık Bilgileri</h5>
   </div>
   <div class="card-body">
+    <table id="producer_wastes" class="table table-hover">
+        <tr><a href="{% url 'firmagor' id=firma.id %}">Firma Bilgileri</a></tr>
+        <tr><td><b>Ticari Adı:</b></td> <td>{{ atik.TicariAdi }}<td> </tr>
+        <tr><td><b>İl:</b></td> <td> {{ atik.Il }} <td> </tr>
+        <tr><td><b>İlçe:</b></td> <td>{{ atik.Ilce }} <td> </tr>
+        <tr><td><b>Atık Kodu:</b></td> <td>{{ atik.AtikKodu }} <td> </tr>
+        <tr><td><b>Fiziksel Özellik:</b></td> <td>{{ atik.FizikselOzellik }}<td> </tr>
+        <tr><td><b>Renk:</b></td> <td>{{ atik.Renk }} <td> </tr>
+        <tr><td><b>Tehlike Özellikleri:</b></td> <td>{{ atik.TehlikeOzellik }} <td> </tr>
+        <tr><td><b>Proses Bilgileri:</b></td> <td> {{ atik.ProsesBilgi }} <td> </tr>
+        <tr><td><b>Atık Analiz Bilgileri:</b></td> <td> {{ atik.AtikAnaliz }} <td> </tr>
+        <tr><td><b>Yıllık Miktarı:</b></td> <td> {{ atik.Miktar }} <td> </tr>
+        <tr><td><b>Atık Tanımı:</b></td> <td> {{ atik.AtikTanim }} <td> </tr>
+        <tr><td><b>Proses Amacı:</b></td> <td> {{ atik.ProsesAmac }} <td> </tr>
+        <tr><td><b>Gerçekleştiği Proses Aşaması:</b></td> <td> {{ atik.ProsesAsama }} <td> </tr>
+        <tr><td><b>Proses Özeti:</b></td> <td>{{ atik.ProsesOzet }} <td> </tr>
+    </table>
+      <table id="producer_wastes" class="table table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Bilesen Adı</th>
+                    <th>Yüzde</th>
+                    <th>Max Oran</th>
+                    <th>Min Oran</th>
 
-    <p class="card-text"> <h5>Ticari Adı:</h5> {{ atik.TicariAdi }} </p>
-    <p class="card-text"> <h5>Atık Kodu:</h5> {{ atik.AtikKodu }} </p>
-    <p class="card-text"><h5>Fiziksel Özellik:</h5> {{ atik.FizikselOzellik }} </p>
-    <p class="card-text"><h5>Renk:</h5> {{ atik.Renk }} </p>
-    <p class="card-text"><h5>Tehlike Özellikleri:</h5> {{ atik.TehlikeOzellik }} </p>
-    <p class="card-text"><h5>Proses Bilgileri:</h5> {{ atik.ProsesBilgi }} </p>
-    <p class="card-text"><h5>Atık Analiz Bilgileri:</h5> {{ atik.AtikAnaliz }} </p>
-    <p class="card-text"><h5>Yıllık Miktarı:</h5> {{ atik.Miktar }} </p>
-    <p class="card-text"><h5>Atık Tanımı:</h5> {{ atik.AtikTanim }} </p>
-    <p class="card-text"><h5>Proses Amacı:</h5> {{ atik.ProsesAmac }} </p>
-    <p class="card-text"><h5>Gerçekleştiği Proses Aşaması:</h5> {{ atik.ProsesAsama }} </p>
-    <p class="card-text"><h5>Proses Özeti:</h5> {{ atik.ProsesOzet }} </p>
+                    <th></th>
+                </tr>
+                </thead>
+                          <tbody>
+                {% for i in bilesenler %}
+                    <tr>
+                        <td></td>
+                        <td> {{i.Bilesenadi}}</td>
+                        <td>{{ i.yuzde }}</td>
+                        <td>{{ i.max }}</td>
+                        <td>{{ i.min }}</td>
+
+
+
+                        <td></td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
 
   </div>
 

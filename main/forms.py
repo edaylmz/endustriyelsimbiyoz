@@ -30,7 +30,7 @@ class FirmaForm(forms.ModelForm):
 class HammaddeForm(forms.ModelForm):
     class Meta:
         model = Hammadde
-        exclude = ['firma']
+        exclude = []
 
     def __init__(self, *args, **kwargs):
         super(HammaddeForm, self).__init__(*args, **kwargs)
@@ -42,6 +42,8 @@ class HammaddeForm(forms.ModelForm):
         self.helper.layout = Layout(Div(
             Field('TicariAdi'),
             Field('Miktar'),
+            Field('Il'),
+            Field('Ilce'),
 
             Fieldset('Bileşen Ekle',
                      Formset('hambilesenler')),
@@ -102,3 +104,51 @@ class BilesenForm(ModelForm):
 
 BilesenlerFormSet = inlineformset_factory(AtikTemel, Bilesenler, form=BilesenForm,
                                           fields=['Bilesenadi', 'max', 'min', 'yuzde'], extra=1)
+
+
+class HammaddeFilterForm(forms.Form):
+    bilesenadi = forms.CharField()
+    bilesenadi2=forms.CharField()
+    il = forms.CharField()
+    ilce = forms.CharField()
+
+    def clean_ilce(self):
+        ilce = self.cleaned_data['ilce']
+        return ilce
+
+    def clean_il(self):
+        il = self.cleaned_data['il']
+        return il
+
+    def clean_bilesenadi(self):
+        bilesenadi = self.cleaned_data['bilesenadi']
+        return bilesenadi
+    def clean_bilesenadi2(self):
+        bilesenadi2 = self.cleaned_data['bilesenadi2']
+
+
+class AtikFilterForm(forms.Form):
+    """CHOICES=(
+        ('<','<'),
+        ('>','>')
+    )"""
+    bilesenadi = forms.CharField()
+    yuzde = forms.IntegerField()
+    il = forms.CharField()
+    ilce = forms.CharField()
+
+    def clean_bilesenadi(self):
+        bilesenadi = self.cleaned_data['bilesenadi']
+        return bilesenadi
+
+    def clean_yuzde(self):
+        yuzde=self.cleaned_data['yuzde']
+        return yuzde
+
+    def clean_il(self):
+        il = self.cleaned_data['il']
+        return il
+
+    def clean_ilce(self):
+        ilce = self.cleaned_data['ilce']
+        return ilce

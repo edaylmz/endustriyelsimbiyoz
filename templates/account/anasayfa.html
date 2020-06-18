@@ -26,6 +26,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active" style="margin-right: 10px">
                     <a href="{% url 'profil' %}">
+
                         <button type="button" class="btn btn-warning">ÜRETİCİ</button>
                     </a>
                 </li>
@@ -34,10 +35,7 @@
                         <button type="button" class="btn btn-outline-warning">TÜKETİCİ</button>
                     </a>
                 </li>
-                <li>
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </li>
+
             </ul>
 
         </form>
@@ -46,7 +44,6 @@
 </div>
 <br>
 <br>
-HOŞGELDİNİZ, {{ request.user.id }}
 <div style="margin-top: 50px;" id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
